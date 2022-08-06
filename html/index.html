@@ -4,9 +4,32 @@
 	</head>
 	<body>
 		<h1>לקנות או למכור</h1>
-		<form action="/result">
+		<form action="/result" autocomplete="on">
+			<h2>פרמטרים לקניה</h2>
+			
+			<label for "shovi_dira">שווי דירה</label><br/>
+			<input type="text" id="shovi_dira" name="shovi_dira" value="2000000"> ש"ח<br/>
+			
 			<label for "hon_atzmi">הון עצמי</label><br/>
-			<input type="text" id="hon_atzmi" name="hon_atzmi"><br/>
+			<input type="text" id="hon_atzmi" name="hon_atzmi" value="500000"> ש"ח<br/>
+			
+			<label for "years">שנים לתשלום משכנתא</label><br/>
+			<input type="text" id="years" name="years" value="30"><br/>
+			
+			<label for "ribit_mashkanta">ריבית משכנתא</label><br/>
+			<input type="text" id="ribit_mashkanta" name="ribit_mashkanta" value="5">%<br/>
+
+			
+			<h2>פרמטרים לשכירות</h2>
+			
+			<label for "schar_dira">שכר דירה</label><br/>
+			<input type="text" id="schar_dira" name="schar_dira" value="6000"> ש"ח<br/>
+
+			<label for "tsua">תשואה על חיסכון</label><br/>
+			<input type="text" id="tsua" name="tsua" value="5">%<br/>
+			
+			<p/>
+			
 			<input type="submit" value="שלח">
 		</form>
 	</body>
