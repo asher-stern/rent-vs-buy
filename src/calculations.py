@@ -1,6 +1,12 @@
 
+def calc_annual_to_monthly_rate_for_saving(annual_rate_percent: float) -> float:
+    annual_yield = 1.0 + (annual_rate_percent / 100.0)
+    return annual_yield ** (1.0 / 12.0) - 1.0
+
+
 def calc_saving(initial, monthly, months, annual_rate_percent):
-    rate = (annual_rate_percent/100.0)/12.0
+    rate = calc_annual_to_monthly_rate_for_saving(annual_rate_percent)
+    # rate = (annual_rate_percent/100.0)/12.0
     total = initial
     for _ in range(int(months)):
         total = total * (1.0 + rate)

@@ -18,6 +18,8 @@ class AppContents(object):
             self.index_contents = f.read()
         with open('html/result.html') as f:
             self.result = f.read()
+        with open('html/notes.html') as f:
+            self.notes_contents = f.read()
         self.lines = list()
         with open('html/lines.txt') as f:
             while True:
@@ -73,6 +75,11 @@ def result():
         result_html = result_html.replace('###7', app_contents.lines[5])
 
     return result_html
+
+
+@app.route("/notes")
+def notes():
+    return app_contents.notes_contents
 
 
 if __name__ == "__main__":
