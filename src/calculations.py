@@ -24,6 +24,7 @@ class Calculate(object):
         self.total_saving_if_rent = None
         self.total_saving_if_buy = None
         self.total_if_buy = None
+        self.monthly_saving = None
         self.rent_smaller_than_mortgage = True
 
     def calculate(self):
@@ -32,16 +33,16 @@ class Calculate(object):
         self.total_cost_of_apartment = self.immediate_payment + self.mortgage_payment * self.months
 
         initial_saving = self.immediate_payment
-        monthly_saving = self.mortgage_payment - self.rent_monthly
+        self.monthly_saving = self.mortgage_payment - self.rent_monthly
 
-        if monthly_saving >= 0:
+        if self.monthly_saving >= 0:
             self.rent_smaller_than_mortgage = True
-            self.total_saving_if_rent = calc_saving(initial_saving, monthly_saving, self.months, self.saving_rate)
+            self.total_saving_if_rent = calc_saving(initial_saving, self.monthly_saving, self.months, self.saving_rate)
             self.total_if_buy = self.apartment
         else:
             self.rent_smaller_than_mortgage = False
             self.total_saving_if_rent = calc_saving(initial_saving, 0.0, self.months, self.saving_rate)
-            self.total_saving_if_buy = calc_saving(0.0, -monthly_saving, self.months, self.saving_rate)
+            self.total_saving_if_buy = calc_saving(0.0, -self.monthly_saving, self.months, self.saving_rate)
             self.total_if_buy = self.apartment + self.total_saving_if_buy
 
 

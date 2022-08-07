@@ -1,5 +1,11 @@
+"""
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+DON'T FORGET TO SET THE PYTHONPATH
+(Both locally and in Heroku)
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+"""
+
 from flask import Flask, request
-import sys
 from calculations import Calculate
 
 
@@ -48,9 +54,17 @@ def result():
         result_html = result_html.replace('###4', '')
     else:
         result_html = result_html.replace('###3', app_contents.lines[1])
-        result_html = result_html.replace('###4', app_contents.lines[2] + '\n' + '{:,}'.format(int(calculate.total_saving_if_buy)))
+        result_html = result_html.replace('###4', app_contents.lines[2] + ' ' + '{:,}'.format(int(calculate.total_saving_if_buy)) + '<br/>')
     result_html = result_html.replace('###5', '{:,}'.format(int(calculate.total_if_buy)))
     result_html = result_html.replace('###6', '{:,}'.format(int(calculate.total_saving_if_rent)))
+
+    result_html = result_html.replace('###8', '{:,}'.format(int(calculate.immediate_payment)))
+    if calculate.rent_smaller_than_mortgage:
+        result_html = result_html.replace('###9', '{:,}'.format(int(calculate.monthly_saving)))
+    else:
+        result_html = result_html.replace('###9', '0')
+    result_html = result_html.replace('###A', f'{calculate.saving_rate:.2f}%')
+
     if calculate.total_if_buy > calculate.total_saving_if_rent:
         result_html = result_html.replace('###7', app_contents.lines[3])
     elif calculate.total_if_buy < calculate.total_saving_if_rent:
