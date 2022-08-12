@@ -37,7 +37,7 @@ def index():
     return app_contents.index_contents
 
 
-@app.route("/result")
+@app.route("/result", methods=['GET', 'POST'])
 def result():
     calculate = Calculate(
         float(request.values['shovi_dira']),
@@ -45,7 +45,10 @@ def result():
         float(request.values['schar_dira']),
         float(request.values['years']),
         float(request.values['ribit_mashkanta']),
-        float(request.values['tsua'])
+        float(request.values['tsua']),
+        float(request.values['apartment_increase']),
+        float(request.values['building']),
+        float(request.values['depreciation'])
     )
     calculate.calculate()
     result_html = app_contents.result
@@ -83,5 +86,6 @@ def notes():
 
 
 if __name__ == "__main__":
+    # app.run(port=8080, debug=True)
     app.run()
 

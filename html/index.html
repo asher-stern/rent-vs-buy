@@ -4,7 +4,7 @@
 	</head>
 	<body>
 		<h1>לקנות או לשכור</h1>
-		<form action="/result" autocomplete="on">
+		<form action="/result" method="post" autocomplete="on">
 			<h2>פרמטרים לקניה</h2>
 			
 			<label for "shovi_dira">שווי דירה</label><br/>
@@ -19,6 +19,14 @@
 			<label for "ribit_mashkanta">ריבית משכנתא</label><br/>
 			<input type="text" id="ribit_mashkanta" name="ribit_mashkanta" value="5">%<br/>
 
+			<label for "building">שווי הבניין כחלק מתוך שווי הדירה</label><br/>
+			<input type="text" id="building" name="building" value="600000"> ש"ח<br/>
+
+			<label for "apartment_increase">עליית ערך הדירה בשנה</label><br/>
+			<input type="text" id="apartment_increase" name="apartment_increase" value="3">%<br/>
+
+			<label for "depreciation">פחת שווי הבניין בשנה</label><br/>
+			<input type="text" id="depreciation" name="depreciation" value="2">%<br/>
 			
 			<h2>פרמטרים לשכירות</h2>
 			
