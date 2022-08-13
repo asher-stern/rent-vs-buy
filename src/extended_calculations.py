@@ -37,7 +37,7 @@ def create_list_of_rent_payments(initial_value, annual_increase_fraction, months
     one_plus_increase = 1.0 + annual_increase_fraction
     value = initial_value
     for month in range(months):
-        if month > 0 and (months % 12) == 0:
+        if month > 0 and (month % 12) == 0:
             value *= one_plus_increase
         list_of_payments.append(value)
     return list_of_payments

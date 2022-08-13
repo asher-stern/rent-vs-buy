@@ -46,7 +46,7 @@ class Calculate(object):
         self.total_cost_of_apartment = self.immediate_payment + self.mortgage_payment * self.months
         self.apartment_value_at_end = self._calculate_apartment_value_at_end()
 
-        list_of_rent_payments = create_list_of_rent_payments(self.rent_monthly, self.annual_increase_rent_percent / 12.0, int(self.months))
+        list_of_rent_payments = create_list_of_rent_payments(self.rent_monthly, self.annual_increase_rent_percent / 100.0, int(self.months))
         self.first_month_rent_no_saving, self.first_month_buy_saving, self.saving_list_if_buy, self.saving_list_if_rent = create_lists_of_savings(self.mortgage_payment, list_of_rent_payments)
         saving_monthly_effective_rate = convert_annual_nominal_interest_rate_to_monthly_effective(self.saving_rate / 100.0)
         self.total_saving_if_rent = calculate_saving_with_detailed_allowance(self.immediate_payment, self.saving_list_if_rent, saving_monthly_effective_rate, int(self.months))

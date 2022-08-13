@@ -48,34 +48,45 @@ def result():
         float(request.values['tsua']),
         float(request.values['apartment_increase']),
         float(request.values['building']),
-        float(request.values['depreciation'])
+        float(request.values['depreciation']),
+        float(request.values['rent_increase'])
     )
     calculate.calculate()
     result_html = app_contents.result
     result_html = result_html.replace('###1', '{:,}'.format(int(calculate.mortgage_payment)))
     result_html = result_html.replace('###2', '{:,}'.format(int(calculate.total_cost_of_apartment)))
-    if calculate.rent_smaller_than_mortgage:
-        result_html = result_html.replace('###3', app_contents.lines[0])
-        result_html = result_html.replace('###4', '')
+
+    if calculate.first_month_buy_saving is not None:
+        if calculate.first_month_buy_saving == 0:
+            result_html = result_html.replace('###3', app_contents.lines[1])
+            result_html = result_html.replace('###B', '')
+        else:
+            result_html = result_html.replace('###3', app_contents.lines[2])
+            result_html = result_html.replace('###B', app_contents.lines[3] + ' ' + str(1 + calculate.first_month_buy_saving) + ' ' + app_contents.lines[4] + ' <br/>')
+        result_html = result_html.replace('###4', app_contents.lines[5] + ' ' + '{:,}'.format(int(calculate.total_saving_if_buy)) + '<br/>')
     else:
-        result_html = result_html.replace('###3', app_contents.lines[1])
-        result_html = result_html.replace('###4', app_contents.lines[2] + ' ' + '{:,}'.format(int(calculate.total_saving_if_buy)) + '<br/>')
+        result_html = result_html.replace('###3', app_contents.lines[0])
+        result_html = result_html.replace('###B', '')
+        result_html = result_html.replace('###4', '')
     result_html = result_html.replace('###5', '{:,}'.format(int(calculate.total_if_buy)))
     result_html = result_html.replace('###6', '{:,}'.format(int(calculate.total_saving_if_rent)))
 
     result_html = result_html.replace('###8', '{:,}'.format(int(calculate.immediate_payment)))
-    if calculate.rent_smaller_than_mortgage:
-        result_html = result_html.replace('###9', '{:,}'.format(int(calculate.monthly_saving)))
+    if calculate.first_month_rent_no_saving is None:
+        result_html = result_html.replace('###9', app_contents.lines[6] + ' ' + app_contents.lines[7] + '<br/>')
     else:
-        result_html = result_html.replace('###9', '0')
+        if calculate.first_month_rent_no_saving == 0:
+            result_html = result_html.replace('###9', '')
+        else:
+            result_html = result_html.replace('###9', app_contents.lines[6] + ' ' + app_contents.lines[8] + ' ' + str(1 + calculate.first_month_rent_no_saving) + ' ' + app_contents.lines[9] + '<br/>')
     result_html = result_html.replace('###A', f'{calculate.saving_rate:.2f}%')
 
     if calculate.total_if_buy > calculate.total_saving_if_rent:
-        result_html = result_html.replace('###7', app_contents.lines[3])
+        result_html = result_html.replace('###7', app_contents.lines[10])
     elif calculate.total_if_buy < calculate.total_saving_if_rent:
-        result_html = result_html.replace('###7', app_contents.lines[4])
+        result_html = result_html.replace('###7', app_contents.lines[11])
     else:
-        result_html = result_html.replace('###7', app_contents.lines[5])
+        result_html = result_html.replace('###7', app_contents.lines[12])
 
     return result_html
 
@@ -86,6 +97,6 @@ def notes():
 
 
 if __name__ == "__main__":
-    # app.run(port=8080, debug=True)
-    app.run()
+    app.run(port=5000, debug=True)
+    # app.run()
 
