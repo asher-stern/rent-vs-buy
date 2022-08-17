@@ -20,9 +20,6 @@ class AppContents(object):
             self.result = f.read()
         with open('html/notes.html') as f:
             self.notes_contents = f.read()
-        with open('html/tlb.html') as f:
-            self.tlb_contents = f.read()
-
         self.lines = list()
         with open('html/lines.txt') as f:
             while True:
@@ -97,11 +94,6 @@ def result():
 @app.route("/notes")
 def notes():
     return app_contents.notes_contents
-
-
-@app.route("/tlb")
-def tlb():
-    return app_contents.tlb_contents
 
 
 if __name__ == "__main__":
